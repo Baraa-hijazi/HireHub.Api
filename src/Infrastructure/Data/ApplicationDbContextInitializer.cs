@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using HireHub.Api.Domain.Entities;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -52,6 +53,41 @@ public class ApplicationDbContextInitializer(
 
     private Task TrySeedAsync()
     {
+        if (context.Candidates.Any())
+        {
+            return Task.CompletedTask;
+        }
+
+        var candidates = new List<Candidate>
+        {
+            new()
+            {
+                FirstName = "John",
+                LastName = "Doe",
+                Email = "example@test.com",
+                PhoneNumber = "1234567890",
+                CallTimeFrom = new TimeOnly(9, 0),
+                CallTimeTo = new TimeOnly(17, 0),
+                LinkedInUrl = "https://www.linkedin.com/in/johndoe",
+                GitHubUrl = "https://www.github.com/johndoe"
+            },
+            new()
+            {
+                FirstName = "Jane",
+                LastName = "Doe",
+                Email = "jane.test@example.com",
+                PhoneNumber = "0987654321",
+                CallTimeFrom = new TimeOnly(10, 0),
+                CallTimeTo = new TimeOnly(18, 0),
+                LinkedInUrl = "https://www.linkedin.com/in/janedoe",
+                GitHubUrl = "https://www.github.com/janedoe"
+            }
+        };
+
+        context.Candidates.AddRange(candidates);
+
+        context.SaveChanges();
+
         return Task.CompletedTask;
     }
 }
