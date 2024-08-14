@@ -1,4 +1,5 @@
-﻿using HireHub.Api.Application.Common.Interfaces;
+﻿using HireHub.Api.Application.Candidates.Queries.DTOs;
+using HireHub.Api.Application.Common.Interfaces;
 using HireHub.Api.Application.Common.Mappings;
 using HireHub.Api.Application.Common.Models;
 
@@ -8,9 +9,9 @@ public record GetCandidatesWithPaginationQuery : IRequest<PaginatedList<Candidat
 {
     public string? Name { get; set; }
 
-    public int PageNumber { get; init; } = 1;
+    public int PageNumber { get; set; } = 1;
 
-    public int PageSize { get; init; } = 10;
+    public int PageSize { get; set; } = 10;
 }
 
 public class GetCandidatesWithPaginationQueryHandler(IApplicationDbContext context, IMapper mapper)

@@ -1,12 +1,12 @@
 ﻿using HireHub.Api.Application.Common.Interfaces;
 
-namespace HireHub.Api.Application.Candidates.Commands.UpdateCandidate;
+namespace HireHub.Api.Application.Candidates.Commands.CreateCandidate;
 
-public class UpdateCandidateCommandValidator : AbstractValidator<UpdateCandidateCommand>
+public class CreateCandidateCommandValidator : AbstractValidator<CreateCandidateCommand>
 {
     private readonly IApplicationDbContext _context;
 
-    public UpdateCandidateCommandValidator(IApplicationDbContext context)
+    public CreateCandidateCommandValidator(IApplicationDbContext context)
     {
         _context = context;
 
@@ -35,9 +35,7 @@ public class UpdateCandidateCommandValidator : AbstractValidator<UpdateCandidate
             .MaximumLength(1000);
     }
 
-    private async Task<bool> BeUniqueEmail(UpdateCandidateCommand model, string email,
+    private async Task<bool> BeUniqueEmail(CreateCandidateCommand model, string email,
         CancellationToken cancellationToken) =>
-        await _context.Candidates
-            .Where(c => c.Id != model.Id)
-            .AllAsync(c => c.Email != email, cancellationToken);
+        await _context.Candidates.AllAsync(c => c.Email != email, cancellationToken);
 }

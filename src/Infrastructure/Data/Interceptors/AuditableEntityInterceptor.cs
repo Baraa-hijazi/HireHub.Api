@@ -1,14 +1,11 @@
-﻿using HireHub.Api.Application.Common.Interfaces;
-using HireHub.Api.Domain.Common;
+﻿using HireHub.Api.Domain.Common;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 
 namespace HireHub.Api.Infrastructure.Data.Interceptors;
 
-public class AuditableEntityInterceptor(
-    IUser user,
-    TimeProvider dateTime) : SaveChangesInterceptor
+public class AuditableEntityInterceptor(TimeProvider dateTime) : SaveChangesInterceptor
 {
     public override InterceptionResult<int> SavingChanges(DbContextEventData eventData, InterceptionResult<int> result)
     {
@@ -36,14 +33,16 @@ public class AuditableEntityInterceptor(
         {
             if (entry.State is EntityState.Added or EntityState.Modified || entry.HasChangedOwnedEntities())
             {
+                const string createdBy = "system";
                 DateTimeOffset utcNow = dateTime.GetUtcNow();
+
                 if (entry.State == EntityState.Added)
                 {
-                    entry.Entity.CreatedBy = user.Id;
+                    entry.Entity.CreatedBy = createdBy;
                     entry.Entity.Created = utcNow;
                 }
 
-                entry.Entity.LastModifiedBy = user.Id;
+                entry.Entity.LastModifiedBy = createdBy;
                 entry.Entity.LastModified = utcNow;
             }
         }
@@ -57,6 +56,6 @@ public static class Extensions
         return entry.References.Any(r =>
             r.TargetEntry != null &&
             r.TargetEntry.Metadata.IsOwned() &&
-            (r.TargetEntry.State == EntityState.Added || r.TargetEntry.State == EntityState.Modified));
+            r.TargetEntry.State is EntityState.Added or EntityState.Modified);
     }
 }

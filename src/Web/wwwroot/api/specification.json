@@ -6,6 +6,96 @@
     "version": "1.0.0"
   },
   "paths": {
+    "/api/Candidates/{id}": {
+      "get": {
+        "tags": [
+          "Candidates"
+        ],
+        "operationId": "GetCandidate",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "x-position": 1
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CandidateDto"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Candidates"
+        ],
+        "operationId": "UpdateCandidates",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "x-position": 1
+          }
+        ],
+        "requestBody": {
+          "x-name": "command",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateCandidateCommand"
+              }
+            }
+          },
+          "required": true,
+          "x-position": 2
+        },
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Candidates"
+        ],
+        "operationId": "DeleteCandidates",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "x-position": 1
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    },
     "/api/Candidates": {
       "get": {
         "tags": [
@@ -87,70 +177,55 @@
           }
         }
       }
-    },
-    "/api/Candidates/{id}": {
-      "put": {
-        "tags": [
-          "Candidates"
-        ],
-        "operationId": "UpdateCandidates",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            },
-            "x-position": 1
-          }
-        ],
-        "requestBody": {
-          "x-name": "command",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/UpdateCandidateCommand"
-              }
-            }
-          },
-          "required": true,
-          "x-position": 2
-        },
-        "responses": {
-          "200": {
-            "description": ""
-          }
-        }
-      },
-      "delete": {
-        "tags": [
-          "Candidates"
-        ],
-        "operationId": "DeleteCandidates",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            },
-            "x-position": 1
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": ""
-          }
-        }
-      }
     }
   },
   "components": {
     "schemas": {
+      "CandidateDto": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "Id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "FirstName": {
+            "type": "string"
+          },
+          "LastName": {
+            "type": "string"
+          },
+          "Email": {
+            "type": "string"
+          },
+          "PhoneNumber": {
+            "type": "string",
+            "nullable": true
+          },
+          "CallTimeFrom": {
+            "type": "string",
+            "format": "time",
+            "nullable": true
+          },
+          "CallTimeTo": {
+            "type": "string",
+            "format": "time",
+            "nullable": true
+          },
+          "LinkedInUrl": {
+            "type": "string",
+            "nullable": true
+          },
+          "GitHubUrl": {
+            "type": "string",
+            "nullable": true
+          },
+          "Notes": {
+            "type": "string",
+            "nullable": true
+          }
+        }
+      },
       "PaginatedListOfCandidateDto": {
         "type": "object",
         "additionalProperties": false,
@@ -181,53 +256,52 @@
           }
         }
       },
-      "CandidateDto": {
-        "type": "object",
-        "additionalProperties": false,
-        "properties": {
-          "Id": {
-            "type": "integer",
-            "format": "int32"
-          }
-        }
-      },
       "CreateCandidateCommand": {
         "type": "object",
         "additionalProperties": false,
         "properties": {
           "FirstName": {
-            "type": "string"
+            "type": "string",
+            "default": "John"
           },
           "LastName": {
-            "type": "string"
+            "type": "string",
+            "default": "Doe"
           },
           "Email": {
-            "type": "string"
+            "type": "string",
+            "default": "Sample@email.com"
           },
           "PhoneNumber": {
             "type": "string",
+            "default": "1234567890",
             "nullable": true
           },
           "CallTimeFrom": {
             "type": "string",
             "format": "time",
+            "default": "09:00:00",
             "nullable": true
           },
           "CallTimeTo": {
             "type": "string",
             "format": "time",
+            "default": "17:00:00",
             "nullable": true
           },
           "LinkedInUrl": {
             "type": "string",
+            "default": "https://www.linkedin.com/in/johndoe",
             "nullable": true
           },
           "GitHubUrl": {
             "type": "string",
+            "default": "https://github.com/Baraa-hijazi/HireHub.Api",
             "nullable": true
           },
           "Notes": {
             "type": "string",
+            "default": "This is a sample note.",
             "nullable": true
           }
         }
@@ -241,38 +315,47 @@
             "format": "int32"
           },
           "FirstName": {
-            "type": "string"
+            "type": "string",
+            "default": "Jon"
           },
           "LastName": {
-            "type": "string"
+            "type": "string",
+            "default": "snow"
           },
           "Email": {
-            "type": "string"
+            "type": "string",
+            "default": "updated@email.com"
           },
           "PhoneNumber": {
             "type": "string",
+            "default": "0987654321",
             "nullable": true
           },
           "CallTimeFrom": {
             "type": "string",
             "format": "time",
+            "default": "08:00:00",
             "nullable": true
           },
           "CallTimeTo": {
             "type": "string",
             "format": "time",
+            "default": "16:00:00",
             "nullable": true
           },
           "LinkedInUrl": {
             "type": "string",
+            "default": "https://www.linkedin.com/in/updated",
             "nullable": true
           },
           "GitHubUrl": {
             "type": "string",
+            "default": "https://github.com/Baraa-hijazi/updated",
             "nullable": true
           },
           "Notes": {
             "type": "string",
+            "default": "This is an updated sample note.",
             "nullable": true
           }
         }
