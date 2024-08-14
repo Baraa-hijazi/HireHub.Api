@@ -32,10 +32,6 @@ app.UseSwaggerUi(settings =>
     settings.DocumentPath = "/api/specification.json";
 });
 
-app.MapControllerRoute(
-    "default",
-    "{controller}/{action=Index}/{id?}");
-
 app.UseExceptionHandler(_ => { });
 
 app.Map("/", () => Results.Redirect("/api"));

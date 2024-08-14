@@ -1,4 +1,4 @@
-﻿namespace HireHub.Api.Application.Candidates.Queries.GetCandidatesWithPaginationQuery;
+﻿namespace HireHub.Api.Application.Candidates.Queries.GetCandidatesWithPagination;
 
 public class GetCandidatesWithPaginationQueryValidator : AbstractValidator<GetCandidatesWithPaginationQuery>
 {

@@ -1,6 +1,6 @@
 ﻿using HireHub.Api.Domain.Entities;
 
-namespace HireHub.Api.Application.Candidates.Queries.GetCandidatesWithPaginationQuery;
+namespace HireHub.Api.Application.Candidates.Queries.GetCandidatesWithPagination;
 
 public class CandidateDto
 {

@@ -1,4 +1,4 @@
-﻿namespace HireHub.Api.Application.Candidates.Commands.CreateCandidatde;
+﻿namespace HireHub.Api.Application.Candidates.Commands.CreateCandidate;
 
 public class CreateCandidateCommandValidator : AbstractValidator<CreateCandidateCommand>
 {

@@ -2,7 +2,7 @@
 using HireHub.Api.Application.Common.Mappings;
 using HireHub.Api.Application.Common.Models;
 
-namespace HireHub.Api.Application.Candidates.Queries.GetCandidatesWithPaginationQuery;
+namespace HireHub.Api.Application.Candidates.Queries.GetCandidatesWithPagination;
 
 public record GetCandidatesWithPaginationQuery : IRequest<PaginatedList<CandidateDto>>
 {

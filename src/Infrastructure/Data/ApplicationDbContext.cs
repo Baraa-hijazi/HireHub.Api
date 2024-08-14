@@ -1,13 +1,12 @@
 ﻿using System.Reflection;
 using HireHub.Api.Application.Common.Interfaces;
 using HireHub.Api.Domain.Entities;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace HireHub.Api.Infrastructure.Data;
 
 public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
-    : IdentityDbContext(options), IApplicationDbContext
+    : DbContext(options), IApplicationDbContext
 {
     public DbSet<Candidate> Candidates => Set<Candidate>();
 

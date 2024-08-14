@@ -2,7 +2,7 @@
 using HireHub.Api.Application.Common.Interfaces;
 using HireHub.Api.Domain.Entities;
 
-namespace HireHub.Api.Application.Candidates.Commands.CreateCandidatde;
+namespace HireHub.Api.Application.Candidates.Commands.CreateCandidate;
 
 public record CreateCandidateCommand : IRequest<int>
 {
