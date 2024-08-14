@@ -9,12 +9,11 @@ namespace HireHub.Api.Application.FunctionalTests;
 public class SqliteTestDatabase : ITestDatabase
 {
     private readonly SqliteConnection _connection;
-    private readonly string _connectionString;
 
     public SqliteTestDatabase()
     {
-        _connectionString = "DataSource=:memory:";
-        _connection = new SqliteConnection(_connectionString);
+        const string connectionString = "DataSource=:memory:";
+        _connection = new SqliteConnection(connectionString);
     }
 
     public async Task InitialiseAsync()
@@ -30,9 +29,9 @@ public class SqliteTestDatabase : ITestDatabase
             .UseSqlite(_connection)
             .Options;
 
-        ApplicationDbContext context = new ApplicationDbContext(options);
+        ApplicationDbContext context = new(options);
 
-        context.Database.Migrate();
+        await context.Database.MigrateAsync();
     }
 
     public DbConnection GetConnection()

@@ -1,5 +1,4 @@
 ﻿using System.ComponentModel;
-using HireHub.Api.Application.Common.Exceptions;
 using HireHub.Api.Application.Common.Interfaces;
 using HireHub.Api.Domain.Entities;
 
